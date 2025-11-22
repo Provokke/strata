@@ -1,0 +1,24 @@
+[package]
+name = "strata"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde_json = { version = "1", features = ["preserve_order"] }
+toml = { version = "0.8", features = ["preserve_order"] }
+csv = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+sysinfo = { version = "0.30", default-features = false }
+rustyline = { version = "14", default-features = false }
+terminal_size = "0.3"
+regex = { version = "1", default-features = false, features = ["std", "unicode-perl"] }
+
+[dev-dependencies]
+proptest = { version = "1", default-features = false, features = ["std"] }
+
+[profile.release]
+debug = false
+
+[[bench]]
+name = "pipeline"
+harness = false
