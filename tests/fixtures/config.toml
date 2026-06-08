@@ -1,0 +1,11 @@
+title = "strata demo"
+version = 3
+
+[server]
+host = "localhost"
+port = 8080
+tags = ["a", "b"]
+
+[database]
+user = "admin"
+pool = 16
