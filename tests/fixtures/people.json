@@ -1,0 +1,7 @@
+[
+  {"name": "alice", "age": 31, "city": "Lisbon", "langs": ["rust", "ocaml"], "active": true},
+  {"name": "bob", "age": 25, "city": "Oslo", "langs": ["go"], "active": false},
+  {"name": "carol", "age": 42, "city": "Lisbon", "langs": ["c", "rust", "zig"], "active": true},
+  {"name": "dave", "age": 19, "city": "Nairobi", "langs": [], "active": true},
+  {"name": "erin", "age": 35, "city": "Oslo", "langs": ["python"], "active": false}
+]
