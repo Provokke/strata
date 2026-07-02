@@ -1,0 +1,7 @@
+region,product,units,price
+north,widget,10,2.5
+south,gadget,4,10.0
+north,gadget,7,10.0
+east,widget,12,2.5
+south,widget,3,2.5
+west,gizmo,1,99.99
