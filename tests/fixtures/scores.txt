@@ -1,0 +1,4 @@
+id name score
+1 ann 90
+2 ben 75
+3 cat 88
