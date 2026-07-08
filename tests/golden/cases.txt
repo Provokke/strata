@@ -1,0 +1,1198 @@
+### open people.json
+╭───┬───────┬─────┬─────────┬────────────────┬────────╮
+│ # │ name  │ age │ city    │ langs          │ active │
+├───┼───────┼─────┼─────────┼────────────────┼────────┤
+│ 0 │ alice │  31 │ Lisbon  │ [list 2 items] │ true   │
+│ 1 │ bob   │  25 │ Oslo    │ [list 1 item]  │ false  │
+│ 2 │ carol │  42 │ Lisbon  │ [list 3 items] │ true   │
+│ 3 │ dave  │  19 │ Nairobi │ [list 0 items] │ true   │
+│ 4 │ erin  │  35 │ Oslo    │ [list 1 item]  │ false  │
+╰───┴───────┴─────┴─────────┴────────────────┴────────╯
+### open people.json | length
+5
+### open people.json | where age > 30
+╭───┬───────┬─────┬────────┬────────────────┬────────╮
+│ # │ name  │ age │ city   │ langs          │ active │
+├───┼───────┼─────┼────────┼────────────────┼────────┤
+│ 0 │ alice │  31 │ Lisbon │ [list 2 items] │ true   │
+│ 1 │ carol │  42 │ Lisbon │ [list 3 items] │ true   │
+│ 2 │ erin  │  35 │ Oslo   │ [list 1 item]  │ false  │
+╰───┴───────┴─────┴────────┴────────────────┴────────╯
+### open people.json | where age > 30 | get name
+╭───┬───────╮
+│ 0 │ alice │
+│ 1 │ carol │
+│ 2 │ erin  │
+╰───┴───────╯
+### open people.json | where city == Lisbon | select name age
+╭───┬───────┬─────╮
+│ # │ name  │ age │
+├───┼───────┼─────┤
+│ 0 │ alice │  31 │
+│ 1 │ carol │  42 │
+╰───┴───────┴─────╯
+### open people.json | where active | length
+3
+### open people.json | where not active | get name
+╭───┬──────╮
+│ 0 │ bob  │
+│ 1 │ erin │
+╰───┴──────╯
+### open people.json | where name starts-with c
+╭───┬───────┬─────┬────────┬────────────────┬────────╮
+│ # │ name  │ age │ city   │ langs          │ active │
+├───┼───────┼─────┼────────┼────────────────┼────────┤
+│ 0 │ carol │  42 │ Lisbon │ [list 3 items] │ true   │
+╰───┴───────┴─────┴────────┴────────────────┴────────╯
+### open people.json | where name =~ "^[ab]"
+╭───┬───────┬─────┬────────┬────────────────┬────────╮
+│ # │ name  │ age │ city   │ langs          │ active │
+├───┼───────┼─────┼────────┼────────────────┼────────┤
+│ 0 │ alice │  31 │ Lisbon │ [list 2 items] │ true   │
+│ 1 │ bob   │  25 │ Oslo   │ [list 1 item]  │ false  │
+╰───┴───────┴─────┴────────┴────────────────┴────────╯
+### open people.json | where "rust" in langs | get name
+╭───┬───────╮
+│ 0 │ alice │
+│ 1 │ carol │
+╰───┴───────╯
+### open people.json | sort-by age | get name
+╭───┬───────╮
+│ 0 │ dave  │
+│ 1 │ bob   │
+│ 2 │ alice │
+│ 3 │ erin  │
+│ 4 │ carol │
+╰───┴───────╯
+### open people.json | sort-by age --reverse | first 2 | select name age
+╭───┬───────┬─────╮
+│ # │ name  │ age │
+├───┼───────┼─────┤
+│ 0 │ carol │  42 │
+│ 1 │ erin  │  35 │
+╰───┴───────┴─────╯
+### open people.json | sort-by city name | select city name
+╭───┬─────────┬───────╮
+│ # │ city    │ name  │
+├───┼─────────┼───────┤
+│ 0 │ Lisbon  │ alice │
+│ 1 │ Lisbon  │ carol │
+│ 2 │ Nairobi │ dave  │
+│ 3 │ Oslo    │ bob   │
+│ 4 │ Oslo    │ erin  │
+╰───┴─────────┴───────╯
+### open people.json | group-by city | columns
+╭───┬─────────╮
+│ 0 │ Lisbon  │
+│ 1 │ Oslo    │
+│ 2 │ Nairobi │
+╰───┴─────────╯
+### open people.json | group-by city | get Oslo | get name
+╭───┬──────╮
+│ 0 │ bob  │
+│ 1 │ erin │
+╰───┴──────╯
+### open people.json | first
+╭────────┬────────────────╮
+│ name   │ alice          │
+│ age    │             31 │
+│ city   │ Lisbon         │
+│ langs  │ [list 2 items] │
+│ active │ true           │
+╰────────┴────────────────╯
+### open people.json | first 2 | get name
+╭───┬───────╮
+│ 0 │ alice │
+│ 1 │ bob   │
+╰───┴───────╯
+### open people.json | last | get name
+erin
+### open people.json | last 2 | get name
+╭───┬──────╮
+│ 0 │ dave │
+│ 1 │ erin │
+╰───┴──────╯
+### open people.json | skip 3 | get name
+╭───┬──────╮
+│ 0 │ dave │
+│ 1 │ erin │
+╰───┴──────╯
+### open people.json | take 2 | get age
+╭───┬────╮
+│ 0 │ 31 │
+│ 1 │ 25 │
+╰───┴────╯
+### open people.json | get age | math sum
+152
+### open people.json | get age | math avg
+30.4
+### open people.json | get age | math min
+19
+### open people.json | get age | math max
+42
+### open people.json | reject langs active
+╭───┬───────┬─────┬─────────╮
+│ # │ name  │ age │ city    │
+├───┼───────┼─────┼─────────┤
+│ 0 │ alice │  31 │ Lisbon  │
+│ 1 │ bob   │  25 │ Oslo    │
+│ 2 │ carol │  42 │ Lisbon  │
+│ 3 │ dave  │  19 │ Nairobi │
+│ 4 │ erin  │  35 │ Oslo    │
+╰───┴───────┴─────┴─────────╯
+### open people.json | select name langs | first 2
+╭───┬───────┬────────────────╮
+│ # │ name  │ langs          │
+├───┼───────┼────────────────┤
+│ 0 │ alice │ [list 2 items] │
+│ 1 │ bob   │ [list 1 item]  │
+╰───┴───────┴────────────────╯
+### open people.json | get 0.langs.1
+ocaml
+### open people.json | get langs | flatten
+╭───┬────────╮
+│ 0 │ rust   │
+│ 1 │ ocaml  │
+│ 2 │ go     │
+│ 3 │ c      │
+│ 4 │ rust   │
+│ 5 │ zig    │
+│ 6 │ python │
+╰───┴────────╯
+### open people.json | get langs | flatten | uniq | sort
+╭───┬────────╮
+│ 0 │ c      │
+│ 1 │ go     │
+│ 2 │ ocaml  │
+│ 3 │ python │
+│ 4 │ rust   │
+│ 5 │ zig    │
+╰───┴────────╯
+### open people.json | get city | uniq
+╭───┬─────────╮
+│ 0 │ Lisbon  │
+│ 1 │ Oslo    │
+│ 2 │ Nairobi │
+╰───┴─────────╯
+### open people.json | get city | uniq | length
+3
+### open people.json | each {|p| $p.age * 2}
+╭───┬────╮
+│ 0 │ 62 │
+│ 1 │ 50 │
+│ 2 │ 84 │
+│ 3 │ 38 │
+│ 4 │ 70 │
+╰───┴────╯
+### open people.json | each {|p| $"($p.name) is ($p.age)"}
+╭───┬─────────────╮
+│ 0 │ alice is 31 │
+│ 1 │ bob is 25   │
+│ 2 │ carol is 42 │
+│ 3 │ dave is 19  │
+│ 4 │ erin is 35  │
+╰───┴─────────────╯
+### open people.json | update age {|a| $a + 1} | get age
+╭───┬────╮
+│ 0 │ 32 │
+│ 1 │ 26 │
+│ 2 │ 43 │
+│ 3 │ 20 │
+│ 4 │ 36 │
+╰───┴────╯
+### open people.json | insert senior {|p| $p.age > 40} | select name senior
+╭───┬───────┬────────╮
+│ # │ name  │ senior │
+├───┼───────┼────────┤
+│ 0 │ alice │ false  │
+│ 1 │ bob   │ false  │
+│ 2 │ carol │ true   │
+│ 3 │ dave  │ false  │
+│ 4 │ erin  │ false  │
+╰───┴───────┴────────╯
+### open people.json | update city "?" | get city | uniq
+╭───┬───╮
+│ 0 │ ? │
+╰───┴───╯
+### open people.json | rename who years | select who years | first 2
+╭───┬───────┬───────╮
+│ # │ who   │ years │
+├───┼───────┼───────┤
+│ 0 │ alice │    31 │
+│ 1 │ bob   │    25 │
+╰───┴───────┴───────╯
+### open people.json | reverse | get name
+╭───┬───────╮
+│ 0 │ erin  │
+│ 1 │ dave  │
+│ 2 │ carol │
+│ 3 │ bob   │
+│ 4 │ alice │
+╰───┴───────╯
+### open people.json | enumerate | first 2 | get index
+╭───┬───╮
+│ 0 │ 0 │
+│ 1 │ 1 │
+╰───┴───╯
+### open people.json | describe
+table<name: string, age: int, city: string, langs: list<string>, active: bool>
+### open people.json | to json --raw
+[{"name":"alice","age":31,"city":"Lisbon","langs":["rust","ocaml"],"active":true},{"name":"bob","age":25,"city":"Oslo","langs":["go"],"active":false},{"name":"carol","age":42,"city":"Lisbon","langs":["c","rust","zig"],"active":true},{"name":"dave","age":19,"city":"Nairobi","langs":[],"active":true},{"name":"erin","age":35,"city":"Oslo","langs":["python"],"active":false}]
+### open people.json | select name age | to csv
+name,age
+alice,31
+bob,25
+carol,42
+dave,19
+erin,35
+
+### open people.json | where age < 20 | to json
+[
+  {
+    "name": "dave",
+    "age": 19,
+    "city": "Nairobi",
+    "langs": [],
+    "active": true
+  }
+]
+### open people.json | reduce -f 0 {|p, acc| $acc + $p.age}
+152
+### open people.json | filter {|p| ($p.langs | length) > 1} | get name
+╭───┬───────╮
+│ 0 │ alice │
+│ 1 │ carol │
+╰───┴───────╯
+### open people.json | get name | str upcase
+╭───┬───────╮
+│ 0 │ ALICE │
+│ 1 │ BOB   │
+│ 2 │ CAROL │
+│ 3 │ DAVE  │
+│ 4 │ ERIN  │
+╰───┴───────╯
+### open people.json | get name | str join ", "
+alice, bob, carol, dave, erin
+### open people.json | get name | each {|n| $n | str length} | math sum
+21
+### (open people.json).1.name
+bob
+### (open people.json | get age | math max) - (open people.json | get age | math min)
+23
+### open sales.csv
+╭───┬────────┬─────────┬───────┬───────╮
+│ # │ region │ product │ units │ price │
+├───┼────────┼─────────┼───────┼───────┤
+│ 0 │ north  │ widget  │    10 │   2.5 │
+│ 1 │ south  │ gadget  │     4 │  10.0 │
+│ 2 │ north  │ gadget  │     7 │  10.0 │
+│ 3 │ east   │ widget  │    12 │   2.5 │
+│ 4 │ south  │ widget  │     3 │   2.5 │
+│ 5 │ west   │ gizmo   │     1 │ 99.99 │
+╰───┴────────┴─────────┴───────┴───────╯
+### open sales.csv | describe
+table<region: string, product: string, units: int, price: float>
+### open sales.csv | where units > 5 | get product
+╭───┬────────╮
+│ 0 │ widget │
+│ 1 │ gadget │
+│ 2 │ widget │
+╰───┴────────╯
+### open sales.csv | each {|r| $r.units * $r.price} | math sum
+272.49
+### open sales.csv | insert total {|r| $r.units * $r.price} | sort-by total -r | first 3 | select region total
+╭───┬────────┬───────╮
+│ # │ region │ total │
+├───┼────────┼───────┤
+│ 0 │ west   │ 99.99 │
+│ 1 │ north  │  70.0 │
+│ 2 │ south  │  40.0 │
+╰───┴────────┴───────╯
+### open sales.csv | group-by region | columns
+╭───┬───────╮
+│ 0 │ north │
+│ 1 │ south │
+│ 2 │ east  │
+│ 3 │ west  │
+╰───┴───────╯
+### open sales.csv | get region | uniq | sort
+╭───┬───────╮
+│ 0 │ east  │
+│ 1 │ north │
+│ 2 │ south │
+│ 3 │ west  │
+╰───┴───────╯
+### open sales.csv | where product == widget | get units | math sum
+25
+### open sales.csv | to json --raw
+[{"region":"north","product":"widget","units":10,"price":2.5},{"region":"south","product":"gadget","units":4,"price":10.0},{"region":"north","product":"gadget","units":7,"price":10.0},{"region":"east","product":"widget","units":12,"price":2.5},{"region":"south","product":"widget","units":3,"price":2.5},{"region":"west","product":"gizmo","units":1,"price":99.99}]
+### open sales.csv | select product price | to csv
+product,price
+widget,2.5
+gadget,10.0
+gadget,10.0
+widget,2.5
+widget,2.5
+gizmo,99.99
+
+### open sales.csv | first 2 | to toml
+--- stderr
+error: to toml expects a record, found table
+ --> <commandline>:1:18
+  |
+1 | open sales.csv | first 2 | to toml
+  |                  ^^^^^^^ to toml expects a record, found table
+--- exit 1
+### open config.toml
+╭──────────┬───────────────────╮
+│ title    │ strata demo       │
+│ version  │                 3 │
+│ server   │ {record 3 fields} │
+│ database │ {record 2 fields} │
+╰──────────┴───────────────────╯
+### open config.toml | get server.port
+8080
+### open config.toml | get server.tags
+╭───┬───╮
+│ 0 │ a │
+│ 1 │ b │
+╰───┴───╯
+### open config.toml | get server.tags.1
+b
+### open config.toml | to json
+{
+  "title": "strata demo",
+  "version": 3,
+  "server": {
+    "host": "localhost",
+    "port": 8080,
+    "tags": [
+      "a",
+      "b"
+    ]
+  },
+  "database": {
+    "user": "admin",
+    "pool": 16
+  }
+}
+### open config.toml | to toml
+title = "strata demo"
+version = 3
+
+[server]
+host = "localhost"
+port = 8080
+tags = ["a", "b"]
+
+[database]
+user = "admin"
+pool = 16
+
+### open config.toml | columns
+╭───┬──────────╮
+│ 0 │ title    │
+│ 1 │ version  │
+│ 2 │ server   │
+│ 3 │ database │
+╰───┴──────────╯
+### open config.toml | describe
+record<title: string, version: int, server: record<host: string, port: int, tags: list<string>>, database: record<user: string, pool: int>>
+### open config.toml | update version 4 | get version
+4
+### open notes.txt | lines
+╭───┬────────────────────╮
+│ 0 │ first line         │
+│ 1 │ second line        │
+│ 2 │                    │
+│ 3 │ fourth: with colon │
+╰───┴────────────────────╯
+### open notes.txt | lines | length
+4
+### open notes.txt | lines | where $it != "" | length
+3
+### open notes.txt | lines | first | str upcase
+FIRST LINE
+### open notes.txt --raw | str length
+43
+### open scores.txt | lines | skip 1 | split column " " id name score
+╭───┬────┬──────┬───────╮
+│ # │ id │ name │ score │
+├───┼────┼──────┼───────┤
+│ 0 │ 1  │ ann  │ 90    │
+│ 1 │ 2  │ ben  │ 75    │
+│ 2 │ 3  │ cat  │ 88    │
+╰───┴────┴──────┴───────╯
+### open scores.txt | lines | split column " " | first 2
+╭───┬─────────┬─────────┬─────────╮
+│ # │ column1 │ column2 │ column3 │
+├───┼─────────┼─────────┼─────────┤
+│ 0 │ id      │ name    │ score   │
+│ 1 │ 1       │ ann     │ 90      │
+╰───┴─────────┴─────────┴─────────╯
+### open nested.json | get nested.deep.value
+42
+### open nested.json | get nested.deep.list | math sum
+6
+### open nested.json | get empty | length
+0
+### open nested.json | get nil | describe
+nothing
+### open nested.json | get missing
+--- stderr
+error: column 'missing' not found
+ --> <commandline>:1:24
+  |
+1 | open nested.json | get missing
+  |                        ^^^^^^^ column 'missing' not found
+--- exit 1
+### open nested.json | get nested.missing?
+### open nested.json | to json --raw | from json | get nested.deep.list.2
+3
+### '{"a": [1, 2, {"b": true}]}' | from json | get a.2.b
+true
+### "a,b\n1,2\n3,4" | from csv
+╭───┬───┬───╮
+│ # │ a │ b │
+├───┼───┼───┤
+│ 0 │ 1 │ 2 │
+│ 1 │ 3 │ 4 │
+╰───┴───┴───╯
+### "a,b\n1,2\n3,4" | from csv | get b | math sum
+6
+### "x = 1\ny = [true, false]" | from toml
+╭───┬────────────────╮
+│ x │              1 │
+│ y │ [list 2 items] │
+╰───┴────────────────╯
+### "one two  three" | split column " "
+╭───┬─────────┬─────────┬─────────╮
+│ # │ column1 │ column2 │ column3 │
+├───┼─────────┼─────────┼─────────┤
+│ 0 │ one     │ two     │ three   │
+╰───┴─────────┴─────────┴─────────╯
+### "a-b-c" | str split "-"
+╭───┬───╮
+│ 0 │ a │
+│ 1 │ b │
+│ 2 │ c │
+╰───┴───╯
+### "hello world" | str replace "o" "0"
+hell0 world
+### "hello world" | str replace --all "o" "0"
+hell0 w0rld
+### "Hello" | str downcase
+hello
+### "  padded  " | str trim
+padded
+### "abc" | str contains "b"
+true
+### "ABC" | str contains -i "b"
+true
+### [1 2 3 4 5] | where $it mod 2 == 1
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 3 │
+│ 2 │ 5 │
+╰───┴───╯
+### [1 2 3] | each {|x| $x * $x}
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 4 │
+│ 2 │ 9 │
+╰───┴───╯
+### [3 1 2] | sort
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+╰───┴───╯
+### [3 1 2] | sort -r
+╭───┬───╮
+│ 0 │ 3 │
+│ 1 │ 2 │
+│ 2 │ 1 │
+╰───┴───╯
+### [1 [2 3] [4]] | flatten
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+│ 3 │ 4 │
+╰───┴───╯
+### [1 1 2 2 3] | uniq
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+╰───┴───╯
+### [1 2 3] | reverse
+╭───┬───╮
+│ 0 │ 3 │
+│ 1 │ 2 │
+│ 2 │ 1 │
+╰───┴───╯
+### [1 2 3] | append 4
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+│ 3 │ 4 │
+╰───┴───╯
+### [1 2 3] | prepend 0
+╭───┬───╮
+│ 0 │ 0 │
+│ 1 │ 1 │
+│ 2 │ 2 │
+│ 3 │ 3 │
+╰───┴───╯
+### [1 null 2] | compact
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+╰───┴───╯
+### [1 2 3] | length
+3
+### [] | length
+0
+### [1 2 3] | reduce {|x, acc| $acc + $x}
+6
+### [a b c] | enumerate
+╭───┬───────┬──────╮
+│ # │ index │ item │
+├───┼───────┼──────┤
+│ 0 │     0 │ a    │
+│ 1 │     1 │ b    │
+│ 2 │     2 │ c    │
+╰───┴───────┴──────╯
+### [a b c] | wrap letter
+╭───┬────────╮
+│ # │ letter │
+├───┼────────┤
+│ 0 │ a      │
+│ 1 │ b      │
+│ 2 │ c      │
+╰───┴────────╯
+### ["1" "2"] | each {|s| $s | into int} | math sum
+3
+### [1.5 2.5] | math sum
+4.0
+### [1 2] | math avg
+1.5
+### [1.4 2.6] | math round
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 3 │
+╰───┴───╯
+### [10kb 2kb] | math sum
+11.7 KiB
+### [1sec 500ms] | math sum
+1sec 500ms
+### range 1..5
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+│ 3 │ 4 │
+│ 4 │ 5 │
+╰───┴───╯
+### range 1..1_000_000_000 | first 3
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+╰───┴───╯
+### range 0..<3
+╭───┬───╮
+│ 0 │ 0 │
+│ 1 │ 1 │
+│ 2 │ 2 │
+╰───┴───╯
+### range 5..1
+╭───┬───╮
+│ 0 │ 5 │
+│ 1 │ 4 │
+│ 2 │ 3 │
+│ 3 │ 2 │
+│ 4 │ 1 │
+╰───┴───╯
+### [a b c d e] | range 1..3
+╭───┬───╮
+│ 0 │ b │
+│ 1 │ c │
+│ 2 │ d │
+╰───┴───╯
+### 1..10 | each {|x| $x * 2} | where $it > 15
+╭───┬────╮
+│ 0 │ 16 │
+│ 1 │ 18 │
+│ 2 │ 20 │
+╰───┴────╯
+### 1..4 | reduce -f 1 {|x, acc| $acc * $x}
+24
+### 1..100 | math sum
+5050
+### echo hello
+hello
+### echo a b c
+╭───┬───╮
+│ 0 │ a │
+│ 1 │ b │
+│ 2 │ c │
+╰───┴───╯
+### echo [1 2] | describe
+list<int>
+### 1 + 2 * 3
+7
+### (1 + 2) * 3
+9
+### 2 ** 10
+1024
+### 7 / 2
+3.5
+### 8 / 2
+4
+### 7 // 2
+3
+### -7 mod 3
+2
+### 10 - 2 - 3
+5
+### 1 < 2 and 2 < 3
+true
+### true or false and false
+true
+### not true
+false
+### "ab" ++ "cd"
+abcd
+### [1 2] ++ [3]
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+│ 2 │ 3 │
+╰───┴───╯
+### 3 in [1 2 3]
+true
+### "lo" in "hello"
+true
+### 1kb + 24b
+1.0 KiB
+### 1min + 30sec
+1min 30sec
+### 2 * 3sec
+6sec
+### 1_000_000
+1000000
+### 0x1f
+31
+### 1.5e3
+1500.0
+### let x = 10; let y = 20; $x + $y
+30
+### let xs = [1 2 3]; $xs.1
+2
+### let r = {a: 1, b: {c: 2}}; $r.b.c
+2
+### let r = {a: 1}; $r | insert b 2
+╭───┬───╮
+│ a │ 1 │
+│ b │ 2 │
+╰───┴───╯
+### let r = {a: 1, b: 2}; $r | reject a
+╭───┬───╮
+│ b │ 2 │
+╰───┴───╯
+### let r = {a: 1, b: 2}; $r | select b
+╭───┬───╮
+│ b │ 2 │
+╰───┴───╯
+### mut n = 0; for i in 1..5 { $n += $i }; $n
+15
+### mut n = 1; while $n < 100 { $n = $n * 3 }; $n
+243
+### mut s = ""; for w in [a b c] { $s = $s ++ $w }; $s
+abc
+### if 1 > 2 { "big" } else { "small" }
+small
+### if false { 1 } else if true { 2 } else { 3 }
+2
+### let v = if true { "yes" }; $v
+yes
+### def double [x: int] { $x * 2 }; double 21
+42
+### def add [a: int, b: int = 5] { $a + $b }; [(add 1) (add 1 2)]
+╭───┬───╮
+│ 0 │ 6 │
+│ 1 │ 3 │
+╰───┴───╯
+### def greet [name: string, --loud(-l)] { if $loud { $"HI ($name)" } else { $"hi ($name)" } }; [(greet x) (greet x -l)]
+╭───┬──────╮
+│ 0 │ hi x │
+│ 1 │ HI x │
+╰───┴──────╯
+### def sum-all [...nums: int] { $nums | math sum }; sum-all 1 2 3 4
+10
+### def tag [x, --prefix(-p): string] { $"($prefix)($x)" }; tag a --prefix "#"
+#a
+### def fact [n: int] { if $n <= 1 { 1 } else { $n * (fact ($n - 1)) } }; fact 10
+3628800
+### def evens [] { $in | where $it mod 2 == 0 }; 1..10 | evens
+╭───┬────╮
+│ 0 │  2 │
+│ 1 │  4 │
+│ 2 │  6 │
+│ 3 │  8 │
+│ 4 │ 10 │
+╰───┴────╯
+### $"sum is (1 + 2) and list is ([1 2] | length)"
+sum is 3 and list is 2
+### let name = "world"; $"hello ($name)!"
+hello world!
+### {a: 1, b: [1 2], c: {d: 3}}
+╭───┬──────────────────╮
+│ a │                1 │
+│ b │ [list 2 items]   │
+│ c │ {record 1 field} │
+╰───┴──────────────────╯
+### {name: "x", "with space": 2}
+╭────────────┬───╮
+│ name       │ x │
+│ with space │ 2 │
+╰────────────┴───╯
+### [{a: 1}, {b: 2}]
+╭───┬───┬───╮
+│ # │ a │ b │
+├───┼───┼───┤
+│ 0 │ 1 │ - │
+│ 1 │ - │ 2 │
+╰───┴───┴───╯
+### [{a: 1, b: 2}, {a: 3, b: 4}] | get a
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 3 │
+╰───┴───╯
+### [{a: 1, b: 2}, {a: 3, b: 4}] | select b
+╭───┬───╮
+│ # │ b │
+├───┼───┤
+│ 0 │ 2 │
+│ 1 │ 4 │
+╰───┴───╯
+### [{a: 1, b: 2}, {a: 3, b: 4}] | to csv
+a,b
+1,2
+3,4
+
+### [{a: 1, b: 2}, {a: 3, b: 4}] | to json
+[
+  {
+    "a": 1,
+    "b": 2
+  },
+  {
+    "a": 3,
+    "b": 4
+  }
+]
+### [{x: 1}] | describe
+table<x: int>
+### 1 | describe
+int
+### 1.5 | describe
+float
+### "s" | describe
+string
+### 10kb | describe
+filesize
+### {a: 1} | describe
+record<a: int>
+### {|x| $x} | describe
+closure
+### 1..3 | describe
+range
+### null | describe
+nothing
+### help first
+First item(s)
+
+Usage:
+  first (n?: int)
+
+Input/output types:
+  list<any> -> any
+### help str replace
+Replace text
+
+Usage:
+  str replace <find: string> <replace: string> --all
+
+Input/output types:
+  string -> string
+  list<string> -> list<string>
+### "x" | table
+x
+### [1 2] | table -w 20
+╭───┬───╮
+│ 0 │ 1 │
+│ 1 │ 2 │
+╰───┴───╯
+### [1 2 3] | is-empty
+false
+### [] | is-empty
+true
+### 5 | into string | describe
+string
+### "42" | into int
+42
+### "3.5" | into float
+3.5
+### [1 2 3] | ignore
+### {a: 1} | columns
+╭───┬───╮
+│ 0 │ a │
+╰───┴───╯
+### 1 + "a"
+--- stderr
+type error: operator '+' is not supported between int and string
+ --> <commandline>:1:1
+  |
+1 | 1 + "a"
+  | ^^^^^^^ int + string
+  help: convert with 'into int' / 'into string' first
+--- exit 1
+### "abc" | math sum
+--- stderr
+type error: command 'math sum' does not accept string input
+ --> <commandline>:1:9
+  |
+1 | "abc" | math sum
+  |         ^^^^^^^^ does not accept string
+  help: 'math sum' accepts: list<any>
+--- exit 1
+### let x: int = "s"
+--- stderr
+type error: type mismatch: 'x' is declared as int but the value is string
+ --> <commandline>:1:14
+  |
+1 | let x: int = "s"
+  |              ^^^ expected int, found string
+--- exit 1
+### ls | first "x"
+--- stderr
+type error: type mismatch for argument of 'first': expected int, found string
+ --> <commandline>:1:12
+  |
+1 | ls | first "x"
+  |            ^^^ expected int
+--- exit 1
+### first
+--- stderr
+type error: command 'first' does not accept nothing input
+ --> <commandline>:1:1
+  |
+1 | first
+  | ^^^^^ does not accept nothing
+  help: 'first' accepts: list<any>
+--- exit 1
+### 5 | lines
+--- stderr
+error: lines expects string input, found int
+ --> <commandline>:1:1
+  |
+1 | 5 | lines
+  | ^ lines expects string input, found int
+--- exit 1
+### [1 2] | str upcase
+--- stderr
+type error: command 'str upcase' does not accept list<int> input
+ --> <commandline>:1:9
+  |
+1 | [1 2] | str upcase
+  |         ^^^^^^^^^^ does not accept list<int>
+  help: 'str upcase' accepts: string, list<string>
+--- exit 1
+### if 1 { 2 }
+--- stderr
+type error: if condition must be bool, found int
+ --> <commandline>:1:4
+  |
+1 | if 1 { 2 }
+  |    ^ not a bool
+--- exit 1
+### $undefined + 1
+--- stderr
+type error: variable '$undefined' not found
+ --> <commandline>:1:1
+  |
+1 | $undefined + 1
+  | ^^^^^^^^^^ undefined variable
+--- exit 1
+### let n = 5; $n.field
+--- stderr
+type error: cannot access 'field' on a value of type int
+ --> <commandline>:1:15
+  |
+1 | let n = 5; $n.field
+  |               ^^^^^ int has no fields
+--- exit 1
+### "a" < 1
+--- stderr
+type error: operator '<' is not supported between string and int
+ --> <commandline>:1:1
+  |
+1 | "a" < 1
+  | ^^^^^^^ string < int
+  help: convert with 'into int' / 'into string' first
+--- exit 1
+### true and 1
+--- stderr
+type error: 'and' expects bool operands, found int
+ --> <commandline>:1:10
+  |
+1 | true and 1
+  |          ^ not a bool
+--- exit 1
+### 1..2.5
+--- stderr
+parse error: unexpected float 2.5
+ --> <commandline>:1:4
+  |
+1 | 1..2.5
+  |    ^^^ expected end of statement
+--- exit 1
+### where
+--- stderr
+type error: missing required argument 'condition' for 'where'
+ --> <commandline>:1:1
+  |
+1 | where
+  | ^^^^^ missing <condition: condition>
+  help: usage: where <condition: condition>
+
+type error: command 'where' does not accept nothing input
+ --> <commandline>:1:1
+  |
+1 | where
+  | ^^^^^ does not accept nothing
+  help: 'where' accepts: table, list<any>
+--- exit 1
+### str replace a
+--- stderr
+type error: missing required argument 'replace' for 'str replace'
+ --> <commandline>:1:1
+  |
+1 | str replace a
+  | ^^^^^^^^^^^^^ missing <replace: string>
+  help: usage: str replace <find: string> <replace: string> --all
+
+type error: command 'str replace' does not accept nothing input
+ --> <commandline>:1:1
+  |
+1 | str replace a
+  | ^^^^^^^^^^^ does not accept nothing
+  help: 'str replace' accepts: string, list<string>
+--- exit 1
+### echo (1 + )
+--- stderr
+parse error: expected expression, found ')'
+ --> <commandline>:1:11
+  |
+1 | echo (1 + )
+  |           ^ expected expression
+--- exit 1
+### [1 2
+--- stderr
+parse error: unclosed delimiter: expected ']', found end of input
+ --> <commandline>:1:1
+  |
+1 | [1 2
+  | ^ unclosed delimiter opened here
+--- exit 1
+### {a: 1
+--- stderr
+parse error: unclosed delimiter: expected '}', found end of input
+ --> <commandline>:1:1
+  |
+1 | {a: 1
+  | ^ unclosed delimiter opened here
+--- exit 1
+### let = 5
+--- stderr
+parse error: expected name or variable name, found '='
+ --> <commandline>:1:5
+  |
+1 | let = 5
+  |     ^ expected name or variable name
+--- exit 1
+### echo "unterminated
+--- stderr
+parse error: unterminated string
+ --> <commandline>:1:6
+  |
+1 | echo "unterminated
+  |      ^^^^^^^^^^^^^ string starts here
+--- exit 1
+### ls --nope
+--- stderr
+parse error: unknown flag --nope for command 'ls'
+ --> <commandline>:1:4
+  |
+1 | ls --nope
+  |    ^^^^^^ unknown flag
+--- exit 1
+### def f [x: int]: nothing -> string { $x }
+--- stderr
+type error: command 'f' declares output string but its body returns int
+ --> <commandline>:1:37
+  |
+1 | def f [x: int]: nothing -> string { $x }
+  |                                     ^^ returns int
+--- exit 1
+### 1 / 0
+--- stderr
+error: division by zero
+ --> <commandline>:1:5
+  |
+1 | 1 / 0
+  |     ^ division by zero
+--- exit 1
+### [1 2 3] | get 10
+--- stderr
+error: row 10 not found
+ --> <commandline>:1:15
+  |
+1 | [1 2 3] | get 10
+  |               ^^ row 10 not found
+--- exit 1
+### {a: 1} | get b
+--- stderr
+error: column 'b' not found
+ --> <commandline>:1:14
+  |
+1 | {a: 1} | get b
+  |              ^ column 'b' not found
+--- exit 1
+### mut a = 1; $a = "x"
+--- stderr
+type error: cannot assign string to variable '$a' of type int
+ --> <commandline>:1:17
+  |
+1 | mut a = 1; $a = "x"
+  |                 ^^^ expected int
+--- exit 1
+### def f [] { 1 }; f extra
+--- stderr
+type error: extra positional argument for 'f'
+ --> <commandline>:1:19
+  |
+1 | def f [] { 1 }; f extra
+  |                   ^^^^^ unexpected argument
+--- exit 1
+### [1 2] | each {|x| $x.foo}
+--- stderr
+type error: cannot access 'foo' on a value of type int
+ --> <commandline>:1:22
+  |
+1 | [1 2] | each {|x| $x.foo}
+  |                      ^^^ int has no fields
+--- exit 1
+### open missing.json
+--- stderr
+error: cannot open 'missing.json': No such file or directory (os error 2)
+ --> <commandline>:1:6
+  |
+1 | open missing.json
+  |      ^^^^^^^^^^^^ cannot open 'missing.json': No such file or directory (os error 2)
+--- exit 1
+### "not json" | from json
+--- stderr
+error: invalid json: expected ident at line 1 column 2
+ --> <commandline>:1:1
+  |
+1 | "not json" | from json
+  | ^^^^^^^^^^ invalid json: expected ident at line 1 column 2
+--- exit 1
+### error make "custom failure"
+--- stderr
+error: custom failure
+ --> <commandline>:1:1
+  |
+1 | error make "custom failure"
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^ custom failure
+--- exit 1
+### [1, "a"] | math sum
+--- stderr
+error: math sum: expected a number, found string
+ --> <commandline>:1:5
+  |
+1 | [1, "a"] | math sum
+  |     ^^^ math sum: expected a number, found string
+--- exit 1
+### for x in 5 { }
+--- stderr
+type error: cannot iterate over int
+ --> <commandline>:1:10
+  |
+1 | for x in 5 { }
+  |          ^ not iterable
+--- exit 1
+### 9223372036854775807 + 1
+--- stderr
+error: integer overflow
+ --> <commandline>:1:1
+  |
+1 | 9223372036854775807 + 1
+  | ^^^^^^^^^^^^^^^^^^^^^^^ integer overflow
+--- exit 1
+### ^echo hi from external
+hi from external
+### ^echo -n abc | str upcase
+ABC
+### ^printf "b\na\nc\n" | lines | sort
+╭───┬───╮
+│ 0 │ a │
+│ 1 │ b │
+│ 2 │ c │
+╰───┴───╯
+### ^printf "x,y\n1,2\n" | from csv
+╭───┬───┬───╮
+│ # │ x │ y │
+├───┼───┼───┤
+│ 0 │ 1 │ 2 │
+╰───┴───┴───╯
+### [c b a] | ^sort
+a
+b
+c
+### "piped text" | ^cat
+piped text
+--- (no trailing newline)
+### [{a: 1}] | ^cat
+╭───┬───╮
+│ # │ a │
+├───┼───┤
+│ 0 │ 1 │
+╰───┴───╯
+### ^sh -c "exit 3"
+--- stderr
+error: external command 'sh' exited with 3
+ --> <commandline>:1:1
+  |
+1 | ^sh -c "exit 3"
+  | ^^^^^^^^^^^^^^^ external command 'sh' exited with 3
+--- exit 1
+### ^definitely-not-a-command-xyz
+--- stderr
+error: command 'definitely-not-a-command-xyz' not found
+ --> <commandline>:1:2
+  |
+1 | ^definitely-not-a-command-xyz
+  |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ command 'definitely-not-a-command-xyz' not found
+--- exit 1
+### ^printf "a\nb\n" | lines | length
+2
+### let out = (^echo captured); $out | str length
+8
+### 1..3 | each {|x| ^echo $x } | length
+3
