@@ -1,0 +1,244 @@
+open people.json
+open people.json | length
+open people.json | where age > 30
+open people.json | where age > 30 | get name
+open people.json | where city == Lisbon | select name age
+open people.json | where active | length
+open people.json | where not active | get name
+open people.json | where name starts-with c
+open people.json | where name =~ "^[ab]"
+open people.json | where "rust" in langs | get name
+open people.json | sort-by age | get name
+open people.json | sort-by age --reverse | first 2 | select name age
+open people.json | sort-by city name | select city name
+open people.json | group-by city | columns
+open people.json | group-by city | get Oslo | get name
+open people.json | first
+open people.json | first 2 | get name
+open people.json | last | get name
+open people.json | last 2 | get name
+open people.json | skip 3 | get name
+open people.json | take 2 | get age
+open people.json | get age | math sum
+open people.json | get age | math avg
+open people.json | get age | math min
+open people.json | get age | math max
+open people.json | reject langs active
+open people.json | select name langs | first 2
+open people.json | get 0.langs.1
+open people.json | get langs | flatten
+open people.json | get langs | flatten | uniq | sort
+open people.json | get city | uniq
+open people.json | get city | uniq | length
+open people.json | each {|p| $p.age * 2}
+open people.json | each {|p| $"($p.name) is ($p.age)"}
+open people.json | update age {|a| $a + 1} | get age
+open people.json | insert senior {|p| $p.age > 40} | select name senior
+open people.json | update city "?" | get city | uniq
+open people.json | rename who years | select who years | first 2
+open people.json | reverse | get name
+open people.json | enumerate | first 2 | get index
+open people.json | describe
+open people.json | to json --raw
+open people.json | select name age | to csv
+open people.json | where age < 20 | to json
+open people.json | reduce -f 0 {|p, acc| $acc + $p.age}
+open people.json | filter {|p| ($p.langs | length) > 1} | get name
+open people.json | get name | str upcase
+open people.json | get name | str join ", "
+open people.json | get name | each {|n| $n | str length} | math sum
+(open people.json).1.name
+(open people.json | get age | math max) - (open people.json | get age | math min)
+open sales.csv
+open sales.csv | describe
+open sales.csv | where units > 5 | get product
+open sales.csv | each {|r| $r.units * $r.price} | math sum
+open sales.csv | insert total {|r| $r.units * $r.price} | sort-by total -r | first 3 | select region total
+open sales.csv | group-by region | columns
+open sales.csv | get region | uniq | sort
+open sales.csv | where product == widget | get units | math sum
+open sales.csv | to json --raw
+open sales.csv | select product price | to csv
+open sales.csv | first 2 | to toml
+open config.toml
+open config.toml | get server.port
+open config.toml | get server.tags
+open config.toml | get server.tags.1
+open config.toml | to json
+open config.toml | to toml
+open config.toml | columns
+open config.toml | describe
+open config.toml | update version 4 | get version
+open notes.txt | lines
+open notes.txt | lines | length
+open notes.txt | lines | where $it != "" | length
+open notes.txt | lines | first | str upcase
+open notes.txt --raw | str length
+open scores.txt | lines | skip 1 | split column " " id name score
+open scores.txt | lines | split column " " | first 2
+open nested.json | get nested.deep.value
+open nested.json | get nested.deep.list | math sum
+open nested.json | get empty | length
+open nested.json | get nil | describe
+open nested.json | get missing
+open nested.json | get nested.missing?
+open nested.json | to json --raw | from json | get nested.deep.list.2
+'{"a": [1, 2, {"b": true}]}' | from json | get a.2.b
+"a,b\n1,2\n3,4" | from csv
+"a,b\n1,2\n3,4" | from csv | get b | math sum
+"x = 1\ny = [true, false]" | from toml
+"one two  three" | split column " "
+"a-b-c" | str split "-"
+"hello world" | str replace "o" "0"
+"hello world" | str replace --all "o" "0"
+"Hello" | str downcase
+"  padded  " | str trim
+"abc" | str contains "b"
+"ABC" | str contains -i "b"
+[1 2 3 4 5] | where $it mod 2 == 1
+[1 2 3] | each {|x| $x * $x}
+[3 1 2] | sort
+[3 1 2] | sort -r
+[1 [2 3] [4]] | flatten
+[1 1 2 2 3] | uniq
+[1 2 3] | reverse
+[1 2 3] | append 4
+[1 2 3] | prepend 0
+[1 null 2] | compact
+[1 2 3] | length
+[] | length
+[1 2 3] | reduce {|x, acc| $acc + $x}
+[a b c] | enumerate
+[a b c] | wrap letter
+["1" "2"] | each {|s| $s | into int} | math sum
+[1.5 2.5] | math sum
+[1 2] | math avg
+[1.4 2.6] | math round
+[10kb 2kb] | math sum
+[1sec 500ms] | math sum
+range 1..5
+range 1..1_000_000_000 | first 3
+range 0..<3
+range 5..1
+[a b c d e] | range 1..3
+1..10 | each {|x| $x * 2} | where $it > 15
+1..4 | reduce -f 1 {|x, acc| $acc * $x}
+1..100 | math sum
+echo hello
+echo a b c
+echo [1 2] | describe
+1 + 2 * 3
+(1 + 2) * 3
+2 ** 10
+7 / 2
+8 / 2
+7 // 2
+-7 mod 3
+10 - 2 - 3
+1 < 2 and 2 < 3
+true or false and false
+not true
+"ab" ++ "cd"
+[1 2] ++ [3]
+3 in [1 2 3]
+"lo" in "hello"
+1kb + 24b
+1min + 30sec
+2 * 3sec
+1_000_000
+0x1f
+1.5e3
+let x = 10; let y = 20; $x + $y
+let xs = [1 2 3]; $xs.1
+let r = {a: 1, b: {c: 2}}; $r.b.c
+let r = {a: 1}; $r | insert b 2
+let r = {a: 1, b: 2}; $r | reject a
+let r = {a: 1, b: 2}; $r | select b
+mut n = 0; for i in 1..5 { $n += $i }; $n
+mut n = 1; while $n < 100 { $n = $n * 3 }; $n
+mut s = ""; for w in [a b c] { $s = $s ++ $w }; $s
+if 1 > 2 { "big" } else { "small" }
+if false { 1 } else if true { 2 } else { 3 }
+let v = if true { "yes" }; $v
+def double [x: int] { $x * 2 }; double 21
+def add [a: int, b: int = 5] { $a + $b }; [(add 1) (add 1 2)]
+def greet [name: string, --loud(-l)] { if $loud { $"HI ($name)" } else { $"hi ($name)" } }; [(greet x) (greet x -l)]
+def sum-all [...nums: int] { $nums | math sum }; sum-all 1 2 3 4
+def tag [x, --prefix(-p): string] { $"($prefix)($x)" }; tag a --prefix "#"
+def fact [n: int] { if $n <= 1 { 1 } else { $n * (fact ($n - 1)) } }; fact 10
+def evens [] { $in | where $it mod 2 == 0 }; 1..10 | evens
+$"sum is (1 + 2) and list is ([1 2] | length)"
+let name = "world"; $"hello ($name)!"
+{a: 1, b: [1 2], c: {d: 3}}
+{name: "x", "with space": 2}
+[{a: 1}, {b: 2}]
+[{a: 1, b: 2}, {a: 3, b: 4}] | get a
+[{a: 1, b: 2}, {a: 3, b: 4}] | select b
+[{a: 1, b: 2}, {a: 3, b: 4}] | to csv
+[{a: 1, b: 2}, {a: 3, b: 4}] | to json
+[{x: 1}] | describe
+1 | describe
+1.5 | describe
+"s" | describe
+10kb | describe
+{a: 1} | describe
+{|x| $x} | describe
+1..3 | describe
+null | describe
+help first
+help str replace
+"x" | table
+[1 2] | table -w 20
+[1 2 3] | is-empty
+[] | is-empty
+5 | into string | describe
+"42" | into int
+"3.5" | into float
+[1 2 3] | ignore
+{a: 1} | columns
+1 + "a"
+"abc" | math sum
+let x: int = "s"
+ls | first "x"
+first
+5 | lines
+[1 2] | str upcase
+if 1 { 2 }
+$undefined + 1
+let n = 5; $n.field
+"a" < 1
+true and 1
+1..2.5
+where
+str replace a
+echo (1 + )
+[1 2
+{a: 1
+let = 5
+echo "unterminated
+ls --nope
+def f [x: int]: nothing -> string { $x }
+1 / 0
+[1 2 3] | get 10
+{a: 1} | get b
+mut a = 1; $a = "x"
+def f [] { 1 }; f extra
+[1 2] | each {|x| $x.foo}
+open missing.json
+"not json" | from json
+error make "custom failure"
+[1, "a"] | math sum
+for x in 5 { }
+9223372036854775807 + 1
+^echo hi from external
+^echo -n abc | str upcase
+^printf "b\na\nc\n" | lines | sort
+^printf "x,y\n1,2\n" | from csv
+[c b a] | ^sort
+"piped text" | ^cat
+[{a: 1}] | ^cat
+^sh -c "exit 3"
+^definitely-not-a-command-xyz
+^printf "a\nb\n" | lines | length
+let out = (^echo captured); $out | str length
+1..3 | each {|x| ^echo $x } | length
