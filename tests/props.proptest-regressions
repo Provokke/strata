@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc aa5505e2a3e13496619d2cf4f65a6fae4825e01aa0b1c7e95f097d52746b9578 # shrinks to ast = Expr { kind: Binary { op: Or, lhs: Expr { kind: If { cond: Expr { kind: Int(0), span: @0..0 }, then: Block { stmts: [Pipeline(Pipeline { elements: [Expr { kind: Int(0), span: @0..0 }], span: @0..0 })], span: @0..0 }, else_: None }, span: @0..0 }, rhs: Expr { kind: Int(0), span: @0..0 } }, span: @0..0 }
